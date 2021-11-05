@@ -1,0 +1,88 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: calc(100% - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-slider {
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  max-width: 1000px;
+  max-height: 560px;
+}
+
+.image-slider .image-left {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.image-slider .image-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: 100%;
+}
+
+.image-comparison-block .drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-slider .drag-handle {
+  position: absolute;
+  top: 50%;
+  text-decoration: none;
+  line-height: 0;
+  z-index: 3;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.image-slider .drag-handle:before {
+  content: '';
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  display: block;
+  position: absolute;
+  left: 50%;
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.image-slider .drag-handle:after {
+  content: '';
+  width: 4px;
+  height: 9999px;
+  top: 0;
+  background-color: #fff;
+  position: absolute;
+  display: block;
+  left: 155%;
+  z-index: -2;
+  transform: translate(-50%, -50%);
+}
+
+.image-comparison-block .drag-handle svg {
+  width: 10px;
+  height: 10px;
+  position: relative;
+  left: 95%;
+}
+
+.image-comparison-block .drag-handle svg:first-of-type {
+  transform: rotate(180deg);
+}
