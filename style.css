@@ -6,6 +6,7 @@
 
 .container {
   width: calc(100% - 100px);
+  margin-top: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +17,8 @@
   position: relative;
   overflow: hidden;
   max-width: 1000px;
-  max-height: 560px;
+  max-height: 400px;
+  /* max-height: 560px; */
 }
 
 .image-slider .image-left {
@@ -85,4 +87,9 @@
 
 .image-comparison-block .drag-handle svg:first-of-type {
   transform: rotate(180deg);
+}
+
+.dragging:before,
+.dragging:after {
+  background-color: #ccc !important;
 }
