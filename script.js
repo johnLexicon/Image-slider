@@ -2,6 +2,8 @@ const sliderWrapper = document.querySelector('.image-slider');
 const dragHandle = document.querySelector('.drag-handle');
 const leftImgWrapper = document.querySelector('.image-left');
 
+let isMousedown = false;
+
 function sliderBetweenConstraints(newPosition) {
   newPosition += dragHandle.clientWidth; // Add draghandle element width to the newPosition.
   const maxLeft = sliderWrapper.clientLeft + dragHandle.clientWidth;
@@ -31,10 +33,11 @@ function resize(x) {
 
 function handleDragStart(event) {
   event.target.classList.add('dragging');
+  isMousedown = true;
 }
 
 function handleDrag(event) {
-  if (event.x === 0) {
+  if (!isMousedown) {
     return;
   }
   resize(event.clientX - sliderWrapper.offsetLeft);
@@ -42,11 +45,12 @@ function handleDrag(event) {
 
 function handleDragEnd(event) {
   event.target.classList.remove('dragging');
+  isMousedown = false;
 }
 
-dragHandle.addEventListener('dragstart', handleDragStart);
-dragHandle.addEventListener('drag', handleDrag);
-dragHandle.addEventListener('dragend', handleDragEnd);
+dragHandle.addEventListener('mousedown', handleDragStart);
+dragHandle.addEventListener('mousemove', handleDrag);
+document.addEventListener('mouseup', handleDragEnd);
 
 leftImgWrapper.style.width =
   dragHandle.offsetLeft + dragHandle.clientWidth + 'px';
