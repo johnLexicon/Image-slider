@@ -35,9 +35,13 @@ function handleDragEnd(event) {
   isActive = false;
 }
 
-sliderWrapper.addEventListener('mousedown', handleDragStart);
-sliderWrapper.addEventListener('mousemove', handleDrag);
-sliderWrapper.addEventListener('mouseup', handleDragEnd);
+function init() {
+  sliderWrapper.addEventListener('mousedown', handleDragStart);
+  sliderWrapper.addEventListener('mousemove', handleDrag);
+  sliderWrapper.addEventListener('mouseup', handleDragEnd);
 
-leftImgWrapper.style.width =
-  dragHandle.offsetLeft + dragHandle.clientWidth + 'px';
+  leftImgWrapper.style.width =
+    dragHandle.offsetLeft + dragHandle.clientWidth + 'px';
+}
+
+init();
