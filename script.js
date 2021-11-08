@@ -2,55 +2,42 @@ const sliderWrapper = document.querySelector('.image-slider');
 const dragHandle = document.querySelector('.drag-handle');
 const leftImgWrapper = document.querySelector('.image-left');
 
-let isMousedown = false;
+let isActive = false;
 
-function sliderBetweenConstraints(newPosition) {
-  newPosition += dragHandle.clientWidth; // Add draghandle element width to the newPosition.
-  const maxLeft = sliderWrapper.clientLeft + dragHandle.clientWidth;
-  const maxRight =
-    sliderWrapper.clientLeft +
-    sliderWrapper.clientWidth -
-    dragHandle.clientWidth;
-  console.log(newPosition, maxLeft, maxRight);
-  if (newPosition <= maxLeft || newPosition >= maxRight) {
-    return false;
-  }
-  return true;
+function changeHandlePosition(newPosition) {
+  newPosition = newPosition - dragHandle.clientWidth / 2;
+  dragHandle.style.transform = `translate(${newPosition}px, -50%)`;
+}
+
+function changeLeftImageWidth(newWidth) {
+  leftImgWrapper.style.width = `${newWidth}px`;
 }
 
 function resize(x) {
-  const newPosition = x - dragHandle.clientWidth;
-  if (!sliderBetweenConstraints(newPosition)) {
-    return;
-  }
-  // Move draghandle (x position)
-  dragHandle.style.left = x - dragHandle.clientWidth + 'px';
-
-  //Resize image (width)
-  leftImgWrapper.style.width =
-    dragHandle.offsetLeft + dragHandle.clientWidth + 'px';
+  changeHandlePosition(x - dragHandle.clientWidth);
+  changeLeftImageWidth(x);
 }
 
 function handleDragStart(event) {
-  event.target.classList.add('dragging');
-  isMousedown = true;
+  event.preventDefault();
+  if (event.target === dragHandle) isActive = true;
 }
 
 function handleDrag(event) {
-  if (!isMousedown) {
+  event.preventDefault();
+  if (!isActive) {
     return;
   }
   resize(event.clientX - sliderWrapper.offsetLeft);
 }
 
 function handleDragEnd(event) {
-  event.target.classList.remove('dragging');
-  isMousedown = false;
+  isActive = false;
 }
 
-dragHandle.addEventListener('mousedown', handleDragStart);
-dragHandle.addEventListener('mousemove', handleDrag);
-document.addEventListener('mouseup', handleDragEnd);
+sliderWrapper.addEventListener('mousedown', handleDragStart);
+sliderWrapper.addEventListener('mousemove', handleDrag);
+sliderWrapper.addEventListener('mouseup', handleDragEnd);
 
 leftImgWrapper.style.width =
   dragHandle.offsetLeft + dragHandle.clientWidth + 'px';
