@@ -35,7 +35,13 @@ function handleDrag(event) {
   if (!isActive) {
     return;
   }
-  resize(event.clientX - sliderWrapper.offsetLeft);
+  let newPosition = null;
+  if (event.type === 'touchmove') {
+    newPosition = event.touches[0].clientX;
+  } else {
+    newPosition = event.clientX;
+  }
+  resize(newPosition - sliderWrapper.offsetLeft);
 }
 
 function handleDragEnd(event) {
@@ -46,6 +52,10 @@ function init() {
   sliderWrapper.addEventListener('mousedown', handleDragStart);
   sliderWrapper.addEventListener('mousemove', handleDrag);
   sliderWrapper.addEventListener('mouseup', handleDragEnd);
+
+  sliderWrapper.addEventListener('touchstart', handleDragStart);
+  sliderWrapper.addEventListener('touchmove', handleDrag);
+  sliderWrapper.addEventListener('touchend', handleDragEnd);
 
   leftImgWrapper.style.width =
     dragHandle.offsetLeft + dragHandle.clientWidth + 'px';
