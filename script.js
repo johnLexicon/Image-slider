@@ -1,6 +1,8 @@
 const sliderWrapper = document.querySelector('.image-slider');
 const dragHandle = document.querySelector('.drag-handle');
 const leftImgWrapper = document.querySelector('.image-left');
+const svgLeft = document.querySelector('.drag-handle svg:first-child');
+const svgRight = document.querySelector('.drag-handle svg:last-child');
 
 let isActive = false;
 
@@ -20,7 +22,12 @@ function resize(x) {
 
 function handleDragStart(event) {
   event.preventDefault();
-  if (event.target === dragHandle) isActive = true;
+  if (
+    event.target === dragHandle ||
+    event.target === svgLeft ||
+    event.target === svgRight
+  )
+    isActive = true;
 }
 
 function handleDrag(event) {
